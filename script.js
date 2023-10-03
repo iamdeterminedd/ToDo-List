@@ -7,6 +7,11 @@ function onAddTaskSubmit(e) {
 
   const newTask = taskInput.value;
 
+  if (newTask === '') {
+    alert('Please add task');
+    return;
+  }
+
   const li = document.createElement('li');
   li.appendChild(document.createTextNode(newTask));
 
