@@ -26,9 +26,11 @@ function onAddTaskSubmit(e) {
 
 function addTaskToDOM(task) {
   const li = document.createElement('li');
-  li.appendChild(document.createTextNode(task));
-
+  const checkBox = createCheckBox('check-box btn-check');
   const button = createButton('remove-task btn-x text-red');
+
+  li.appendChild(checkBox);
+  li.appendChild(document.createTextNode(task));
   li.appendChild(button);
 
   taskList.appendChild(li);
@@ -46,6 +48,13 @@ function createIcon(classes) {
   const icon = document.createElement('i');
   icon.className = classes;
   return icon;
+}
+
+function createCheckBox(classes) {
+  const box = document.createElement('input');
+  box.type = 'checkbox';
+  box.className = classes;
+  return box;
 }
 
 function removeTask(e) {

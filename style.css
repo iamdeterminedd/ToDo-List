@@ -71,6 +71,13 @@ header h1 {
     color: red;
 }
 
+.btn-check {
+    cursor: pointer;
+    accent-color: green;
+    width: 15px;
+}
+
+
 /* Tasks */
 
 .tasks {
@@ -88,4 +95,9 @@ header h1 {
     padding: 10px 15px;
     margin: 0 5px 20px;
     font-weight: 700;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: #999;
 }
