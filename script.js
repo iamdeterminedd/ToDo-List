@@ -28,7 +28,7 @@ function addTaskToDOM(task) {
   const li = document.createElement('li');
   li.appendChild(document.createTextNode(task));
 
-  const button = createButton('remove-task btn-link text-red');
+  const button = createButton('remove-task btn-x text-red');
   li.appendChild(button);
 
   taskList.appendChild(li);

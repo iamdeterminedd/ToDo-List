@@ -46,12 +46,29 @@ header h1 {
     outline: none;
 }
 
+/* Buttons */
+
 .btn {
     width: 10%;
+    color: #fff;
     padding: 13px;
     border-radius: 5px;
     border: 1px solid #ccc;
     background-color: #2ECC71;
+    cursor: pointer;
+}
+
+.btn-x {
+    font-size: 16px;
+    background-color: transparent;
+    color: #333;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.text-red {
+    color: red;
 }
 
 /* Tasks */
