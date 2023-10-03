@@ -46,6 +46,14 @@ header h1 {
     outline: none;
 }
 
+.btn {
+    width: 10%;
+    padding: 13px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #2ECC71;
+}
+
 /* Tasks */
 
 .tasks {
