@@ -19,6 +19,9 @@ function onAddTaskSubmit(e) {
   li.appendChild(button);
 
   taskList.appendChild(li);
+
+  addTaskToLocalStorage(newTask);
+
   taskInput.value = '';
 }
 
@@ -46,6 +49,20 @@ function removeTask(e) {
       taskRemove.remove();
     }
   }
+}
+
+function addTaskToLocalStorage(task) {
+  let taskFromStorage;
+
+  if (localStorage.getItem('tasks') === null) {
+    taskFromStorage = [];
+  } else {
+    taskFromStorage = JSON.parse(localStorage.getItem('tasks'));
+  }
+
+  taskFromStorage.push(task);
+
+  localStorage.setItem('tasks', JSON.stringify(taskFromStorage));
 }
 
 addTask.addEventListener('submit', onAddTaskSubmit);
