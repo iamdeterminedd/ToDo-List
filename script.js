@@ -56,6 +56,8 @@ function removeTask(e) {
 
     if (confirm('Are you sure?')) {
       taskRemove.remove();
+
+      removeTaskFromLocalStorage(taskRemove.textContent);
     }
   }
 }
@@ -78,6 +80,14 @@ function getTaskFromLocalStorage() {
   }
 
   return taskFromLocalStorage;
+}
+
+function removeTaskFromLocalStorage(task) {
+  let taskFromLocalStorage = getTaskFromLocalStorage();
+
+  taskFromLocalStorage = taskFromLocalStorage.filter((i) => i !== task);
+
+  localStorage.setItem('tasks', JSON.stringify(taskFromLocalStorage));
 }
 
 addTask.addEventListener('submit', onAddTaskSubmit);
