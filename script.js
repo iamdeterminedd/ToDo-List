@@ -2,6 +2,11 @@ const addTask = document.getElementById('task-form');
 const taskInput = document.getElementById('task-input');
 const taskList = document.getElementById('task-list');
 
+function displayTasks() {
+  const tasksFromLocalStorage = getTaskFromLocalStorage();
+  tasksFromLocalStorage.forEach((task) => addTaskToDOM(task));
+}
+
 function onAddTaskSubmit(e) {
   e.preventDefault();
 
@@ -12,17 +17,21 @@ function onAddTaskSubmit(e) {
     return;
   }
 
+  addTaskToDOM(newTask);
+
+  addTaskToLocalStorage(newTask);
+
+  taskInput.value = '';
+}
+
+function addTaskToDOM(task) {
   const li = document.createElement('li');
-  li.appendChild(document.createTextNode(newTask));
+  li.appendChild(document.createTextNode(task));
 
   const button = createButton('remove-task btn-link text-red');
   li.appendChild(button);
 
   taskList.appendChild(li);
-
-  addTaskToLocalStorage(newTask);
-
-  taskInput.value = '';
 }
 
 function createButton(classes) {
@@ -52,18 +61,25 @@ function removeTask(e) {
 }
 
 function addTaskToLocalStorage(task) {
-  let taskFromStorage;
-
-  if (localStorage.getItem('tasks') === null) {
-    taskFromStorage = [];
-  } else {
-    taskFromStorage = JSON.parse(localStorage.getItem('tasks'));
-  }
+  let taskFromStorage = getTaskFromLocalStorage();
 
   taskFromStorage.push(task);
 
   localStorage.setItem('tasks', JSON.stringify(taskFromStorage));
 }
 
+function getTaskFromLocalStorage() {
+  let taskFromLocalStorage;
+
+  if (localStorage.getItem('tasks') === null) {
+    taskFromLocalStorage = [];
+  } else {
+    taskFromLocalStorage = JSON.parse(localStorage.getItem('tasks'));
+  }
+
+  return taskFromLocalStorage;
+}
+
 addTask.addEventListener('submit', onAddTaskSubmit);
 taskList.addEventListener('click', removeTask);
+document.addEventListener('DOMContentLoaded', displayTasks);
