@@ -10,7 +10,7 @@ function onAddTaskSubmit(e) {
   const li = document.createElement('li');
   li.appendChild(document.createTextNode(newTask));
 
-  const button = createButton('remove-item btn-link text-red');
+  const button = createButton('remove-task btn-link text-red');
   li.appendChild(button);
 
   taskList.appendChild(li);
@@ -31,4 +31,17 @@ function createIcon(classes) {
   return icon;
 }
 
+function removeTask(e) {
+  //   e.target.parentElement.parentElement;
+
+  if (e.target.parentElement.classList.contains('remove-task')) {
+    const taskRemove = e.target.parentElement.parentElement;
+
+    if (confirm('Are you sure?')) {
+      taskRemove.remove();
+    }
+  }
+}
+
 addTask.addEventListener('submit', onAddTaskSubmit);
+taskList.addEventListener('click', removeTask);
