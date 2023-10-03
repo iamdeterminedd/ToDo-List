@@ -57,17 +57,22 @@ function createCheckBox(classes) {
   return box;
 }
 
-function removeTask(e) {
-  //   e.target.parentElement.parentElement;
-
+function onClickTask(e) {
   if (e.target.parentElement.classList.contains('remove-task')) {
-    const taskRemove = e.target.parentElement.parentElement;
+    removeTask(e.target.parentElement.parentElement);
+  } else if (e.target.classList.contains('check-box')) {
+    toggleCompletion(e.target.parentElement);
+  }
+}
 
-    if (confirm('Are you sure?')) {
-      taskRemove.remove();
+function toggleCompletion(task) {
+  task.classList.toggle('completed');
+}
 
-      removeTaskFromLocalStorage(taskRemove.textContent);
-    }
+function removeTask(task) {
+  if (confirm('Are you sure?')) {
+    task.remove();
+    removeTaskFromLocalStorage(task.textContent);
   }
 }
 
@@ -100,5 +105,5 @@ function removeTaskFromLocalStorage(task) {
 }
 
 addTask.addEventListener('submit', onAddTaskSubmit);
-taskList.addEventListener('click', removeTask);
+taskList.addEventListener('click', onClickTask);
 document.addEventListener('DOMContentLoaded', displayTasks);

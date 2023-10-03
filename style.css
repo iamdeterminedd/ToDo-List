@@ -99,5 +99,9 @@ header h1 {
 
 .completed {
     text-decoration: line-through;
+    text-decoration-color: red;
+    text-decoration-thickness: 2px;
+    /* text-decoration-thickness: 0.1em; */
+    
     color: #999;
 }
