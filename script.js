@@ -6,34 +6,42 @@ formattedDate();
 
 function displayTasks() {
   const tasksFromLocalStorage = getTaskFromLocalStorage();
-  tasksFromLocalStorage.forEach((task) => addTaskToDOM(task));
+  const completedFromLocalStorage = getCompletedTaskFromLocalStorage();
+  tasksFromLocalStorage.forEach((task) =>
+    addTaskToDOM(task, completedFromLocalStorage.includes(task))
+  );
 }
 
 function onAddTaskSubmit(e) {
   e.preventDefault();
 
   const newTask = taskInput.value;
+  const completed = false;
 
   if (newTask === '') {
     alert('Please add task');
     return;
   }
 
-  addTaskToDOM(newTask);
+  addTaskToDOM(newTask, completed);
 
   addTaskToLocalStorage(newTask);
 
   taskInput.value = '';
 }
 
-function addTaskToDOM(task) {
+function addTaskToDOM(task, completed) {
   const li = document.createElement('li');
-  const checkBox = createCheckBox('check-box btn-check');
+  const checkBox = createCheckBox('check-box btn-check', completed);
   const button = createButton('remove-task btn-x text-red');
 
   li.appendChild(checkBox);
   li.appendChild(document.createTextNode(task));
   li.appendChild(button);
+
+  if (completed) {
+    li.classList.add('completed');
+  }
 
   taskList.appendChild(li);
 }
@@ -52,10 +60,12 @@ function createIcon(classes) {
   return icon;
 }
 
-function createCheckBox(classes) {
+function createCheckBox(classes, completed) {
   const box = document.createElement('input');
   box.type = 'checkbox';
   box.className = classes;
+  box.checked = completed;
+  box.addEventListener('change', toggleCompletion);
   return box;
 }
 
@@ -67,8 +77,38 @@ function onClickTask(e) {
   }
 }
 
-function toggleCompletion(task) {
-  task.classList.toggle('completed');
+function toggleCompletion(e) {
+  const checkbox = e.target;
+  const task = checkbox.parentElement;
+  task.classList.toggle('completed', checkbox.checked);
+
+  updateCompletedTaskInLocalStorage(task.textContent, checkbox.checked);
+}
+
+function getCompletedTaskFromLocalStorage() {
+  let completedFromLocalStorage;
+
+  if (localStorage.getItem('completed') === null) {
+    completedFromLocalStorage = [];
+  } else {
+    completedFromLocalStorage = JSON.parse(localStorage.getItem('completed'));
+  }
+
+  return completedFromLocalStorage;
+}
+
+function updateCompletedTaskInLocalStorage(task, completed) {
+  let completedFromLocalStorage = getCompletedTaskFromLocalStorage();
+
+  if (completed) {
+    completedFromLocalStorage.push(task);
+  } else {
+    completedFromLocalStorage = completedFromLocalStorage.filter(
+      (i) => i !== task
+    );
+  }
+
+  localStorage.setItem('completed', JSON.stringify(completedFromLocalStorage));
 }
 
 function removeTask(task) {
