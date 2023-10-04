@@ -19,14 +19,20 @@ body {
 
 header {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 header h1 {
     font-weight: 300;
     margin-left: 10px;
+}
+
+#currentDate {
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: right;
 }
 
 .container {
@@ -37,7 +43,7 @@ header h1 {
 
 /* Form & Input */
 .form-input {
-    width: 80%;
+    width: 85%;
     font-size: 18px;
     margin-bottom: 20px;
     padding: 10px;
@@ -49,7 +55,7 @@ header h1 {
 /* Buttons */
 
 .btn {
-    width: 10%;
+    width: 14%;
     color: #fff;
     padding: 13px;
     border-radius: 5px;
@@ -89,7 +95,7 @@ header h1 {
 .tasks li {
     display: flex;
     justify-content: space-between;
-    width: 90%;
+    width: 100%;
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px 15px;

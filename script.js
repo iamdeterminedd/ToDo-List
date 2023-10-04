@@ -2,6 +2,8 @@ const addTask = document.getElementById('task-form');
 const taskInput = document.getElementById('task-input');
 const taskList = document.getElementById('task-list');
 
+formattedDate();
+
 function displayTasks() {
   const tasksFromLocalStorage = getTaskFromLocalStorage();
   tasksFromLocalStorage.forEach((task) => addTaskToDOM(task));
@@ -102,6 +104,16 @@ function removeTaskFromLocalStorage(task) {
   taskFromLocalStorage = taskFromLocalStorage.filter((i) => i !== task);
 
   localStorage.setItem('tasks', JSON.stringify(taskFromLocalStorage));
+}
+
+function formattedDate() {
+  let currentDate = new Date();
+
+  let options = { year: 'numeric', month: 'long', day: 'numeric' };
+  let formattedDate = new Intl.DateTimeFormat('en-US', options).format(
+    currentDate
+  );
+  document.getElementById('currentDate').innerHTML = formattedDate;
 }
 
 addTask.addEventListener('submit', onAddTaskSubmit);
