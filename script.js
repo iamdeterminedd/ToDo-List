@@ -140,10 +140,15 @@ function getTaskFromLocalStorage() {
 
 function removeTaskFromLocalStorage(task) {
   let taskFromLocalStorage = getTaskFromLocalStorage();
+  let completedFromLocalStorage = getCompletedTaskFromLocalStorage();
 
   taskFromLocalStorage = taskFromLocalStorage.filter((i) => i !== task);
+  completedFromLocalStorage = completedFromLocalStorage.filter(
+    (i) => i !== task
+  );
 
   localStorage.setItem('tasks', JSON.stringify(taskFromLocalStorage));
+  localStorage.setItem('completed', JSON.stringify(completedFromLocalStorage));
 }
 
 function formattedDate() {
